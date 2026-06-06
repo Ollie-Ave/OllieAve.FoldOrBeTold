@@ -10,6 +10,8 @@ namespace OllieAve.FoldOrBeTold.Entities;
 public class LaundryItem : EntityBase, IEntity, IRenderable
 {
     private static readonly List<string> textureNames = [
+        "BlueBra.png",
+        "PinkBra.png",
         "ShirtBlank.png",
         "ShirtButtons.png",
         "ShirtCat.png",
@@ -22,6 +24,9 @@ public class LaundryItem : EntityBase, IEntity, IRenderable
         "ShirtSmile.png",
         "ShirtStrawberry.png",
         "ShirtStripes.png",
+        "SweaterBlank.png",
+        "SweaterDots.png",
+        "YellowBra.png",
     ];
 
     private readonly Vector2 pickedUpOffset = new(15, 15);
