@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OllieAve.BombDropper.Entities\OllieAve.BombDropper.Entities.csproj" />
+    <ProjectReference Include="..\OllieAve.FoldOrBeTold.Entities\OllieAve.FoldOrBeTold.Entities.csproj" />
   </ItemGroup>
 
 </Project>
