@@ -1,4 +1,5 @@
-﻿using OllieAve.FoldOrBeTold.Entities;
+﻿using System.Numerics;
+using OllieAve.FoldOrBeTold.Entities;
 using OllieAve.FoldOrBeTold.Entities.Helpers;
 using OllieAve.FoldOrBeTold.Entities.Interfaces;
 using OllieAve.FoldOrBeTold.Entities.Models;
@@ -16,13 +17,22 @@ internal static class Program
         Player player = new(new(150, 150));
         Tree tree = new(new(100, 100));
         Tree tree2 = new(new(300, 300));
-        LaundryItem item = new(new(200, 200));
         WashingBasket basket = new(new(100, 150));
+        StateManager stateManager = new();
 
-        EntityManager entityManager = new([player, tree, tree2, item, basket]);
+        EntityManager entityManager = new([player, tree, tree2, basket, stateManager]);
+
+        for (int i = 0; i < 10; i++)
+        {
+            Random random = new();
+            Vector2 newPos = new(random.Next(-100, 300), random.Next(-100, 300));
+            LaundryItem item = new(newPos);
+
+            entityManager.SpawnEntity(item);
+        }
 
         CameraHandler camera = new(entityManager);
-        entityManager.AddEntity(camera);
+        entityManager.SpawnEntity(camera);
 
 
         while (!Raylib.WindowShouldClose())

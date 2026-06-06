@@ -5,4 +5,6 @@ namespace OllieAve.FoldOrBeTold.Entities.Interfaces;
 public interface IEntity
 {
     void Update(UpdateState updateState);
+
+    Guid EntityId { get; }
 }

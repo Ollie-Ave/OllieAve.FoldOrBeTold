@@ -6,7 +6,7 @@ using Raylib_cs;
 
 namespace OllieAve.FoldOrBeTold.Entities;
 
-public class Player : IEntity, IRenderable
+public class Player : EntityBase, IEntity, IRenderable
 {
     private const string textureName = "Player.png";
 
@@ -14,10 +14,13 @@ public class Player : IEntity, IRenderable
     private const float movementSpeed = 25;
     private const float maxVelocity = 5;
     private const float drag = 25;
+    private const float reach = 50;
 
     private static Texture2D texture;
     private Vector2 velocity;
     private Vector2 position;
+
+    private IEntity? itemHeldByPlayer;
 
     public int RenderingOrder => 1;
 
@@ -48,9 +51,29 @@ public class Player : IEntity, IRenderable
         return position;
     }
 
+    public bool CanReachItem(Vector2 itemPosition)
+    {
+        return Vector2.Distance(itemPosition, position) <= reach;
+    }
+
     public Vector2 GetSize()
     {
         return new(texture.Width, texture.Height);
+    }
+
+    public IEntity? GetHeldItem()
+    {
+        return itemHeldByPlayer;
+    }
+
+    public void HoldItem(IEntity entity)
+    {
+        itemHeldByPlayer = entity;
+    }
+
+    public void DropItem()
+    {
+        itemHeldByPlayer = null;
     }
 
     private Vector2 UpdatePlayerPosition(float frameTime)

@@ -1,4 +1,5 @@
 using System.Numerics;
+using OllieAve.FoldOrBeTold.Entities.Constants;
 using OllieAve.FoldOrBeTold.Entities.Helpers;
 using OllieAve.FoldOrBeTold.Entities.Interfaces;
 using OllieAve.FoldOrBeTold.Entities.Models;
@@ -6,14 +7,27 @@ using Raylib_cs;
 
 namespace OllieAve.FoldOrBeTold.Entities;
 
-public class LaundryItem : IEntity, IRenderable
+public class LaundryItem : EntityBase, IEntity, IRenderable
 {
-    private const string textureName = "Shirt.png";
-    private const string outlineShaderName = "WhiteOutline.fs";
+    private static readonly List<string> textureNames = [
+        "ShirtBlank.png",
+        "ShirtButtons.png",
+        "ShirtCat.png",
+        "ShirtCherry.png",
+        "ShirtCreeper.png",
+        "ShirtDaisy.png",
+        "ShirtHeart.png",
+        "ShirtRainbow.png",
+        "ShirtRose.png",
+        "ShirtSmile.png",
+        "ShirtStrawberry.png",
+        "ShirtStripes.png",
+    ];
+
     private readonly Vector2 pickedUpOffset = new(15, 15);
     private readonly Vector2 putDownOffset = new(20, 12);
 
-    private static Texture2D texture;
+    private Texture2D texture;
     private Shader shader;
 
     private bool hovered;
@@ -25,9 +39,11 @@ public class LaundryItem : IEntity, IRenderable
 
     public LaundryItem(Vector2 position)
     {
+        Random random = new();
+        string textureName = textureNames[random.Next(0, textureNames.Count)];
         texture = Raylib.LoadTexture(FileSystemHelper.GetAssetPath(textureName));
 
-        shader = Raylib.LoadShader(null, FileSystemHelper.GetShaderPath(outlineShaderName));
+        shader = Raylib.LoadShader(null, FileSystemHelper.GetShaderPath(ShaderNames.WhiteOutlineShaderName));
         SetupShader();
 
         this.position = position;
@@ -62,21 +78,28 @@ public class LaundryItem : IEntity, IRenderable
 
     private void HandlePickupInput(UpdateState state)
     {
-        if (hovered && Raylib.IsMouseButtonDown(MouseButton.Left))
+        Player player = state.EntityManager.GetPlayer();
+        Vector2 playerPosition = player.GetPosition();
+
+        if (hovered
+            && Raylib.IsMouseButtonDown(MouseButton.Left)
+            && player.CanReachItem(position))
         {
             pickedUp = true;
             hovered = false;
 
-            Player player = state.EntityManager.GetPlayer();
-            position = player.GetPosition() + pickedUpOffset;
+            player.HoldItem(this);
+
+            position = playerPosition + pickedUpOffset;
         }
 
         if (pickedUp && Raylib.IsMouseButtonDown(MouseButton.Right))
         {
             pickedUp = false;
 
-            Player player = state.EntityManager.GetPlayer();
-            position = player.GetPosition() + putDownOffset;
+            player.DropItem();
+
+            position = playerPosition + putDownOffset;
         }
     }
 
@@ -98,7 +121,8 @@ public class LaundryItem : IEntity, IRenderable
 
         Rectangle itemRec = new(position.X, position.Y, texture.Width, texture.Height);
 
-        hovered = Raylib.CheckCollisionRecs(itemRec, mouseRec);
+        hovered = state.EntityManager.GetPlayer().CanReachItem(position)
+            && Raylib.CheckCollisionRecs(itemRec, mouseRec);
     }
 
     private void SetupShader()

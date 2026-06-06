@@ -4,38 +4,50 @@ namespace OllieAve.FoldOrBeTold.Entities.Helpers;
 
 public class EntityManager
 {
-    private readonly List<IEntity> entities;
+    private readonly Dictionary<Guid, IEntity> entities;
 
     public EntityManager(List<IEntity> entities)
     {
-        this.entities = entities;
+        this.entities = entities.ToDictionary(x => x.EntityId, x => x);
 
     }
 
-    public void AddEntity(IEntity entity)
+    public void SpawnEntity(IEntity entity)
     {
-        entities.Add(entity);
+        entities.Add(entity.EntityId, entity);
+    }
+
+    public void DespawnEntity(Guid entityId)
+    {
+        entities.Remove(entityId);
     }
 
     public List<IEntity> GetEntitites()
     {
-        return entities;
+        return [.. entities.Select(x => x.Value)];
     }
+
 
     public List<IRenderable> GetRenderables()
     {
-        return [.. entities.OfType<IRenderable>().OrderByDescending(x => x.RenderingOrder)];
+        return [.. entities.Select(x => x.Value).OfType<IRenderable>().OrderByDescending(x => x.RenderingOrder)];
     }
 
     public Player GetPlayer()
     {
-        return entities.SingleOrDefault(x => x is Player) as Player
+        return entities.Select(x => x.Value).SingleOrDefault(x => x is Player) as Player
             ?? throw new Exception("No player found");
     }
 
     public CameraHandler GetCamera()
     {
-        return entities.SingleOrDefault(x => x is CameraHandler) as CameraHandler
+        return entities.Select(x => x.Value).SingleOrDefault(x => x is CameraHandler) as CameraHandler
             ?? throw new Exception("No camera manager found");
+    }
+
+    public StateManager GetStateManager()
+    {
+        return entities.Select(x => x.Value).SingleOrDefault(x => x is StateManager) as StateManager
+            ?? throw new Exception("No state manager found");
     }
 }

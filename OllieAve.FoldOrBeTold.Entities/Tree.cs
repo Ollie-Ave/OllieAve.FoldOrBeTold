@@ -5,7 +5,7 @@ using Raylib_cs;
 
 namespace OllieAve.FoldOrBeTold.Entities;
 
-public class Tree : IEntity, IRenderable
+public class Tree : EntityBase, IEntity, IRenderable
 {
     private Vector2 position;
 

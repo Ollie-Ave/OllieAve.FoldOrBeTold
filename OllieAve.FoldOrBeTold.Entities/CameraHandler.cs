@@ -6,7 +6,7 @@ using Raylib_cs;
 
 namespace OllieAve.FoldOrBeTold.Entities;
 
-public class CameraHandler : IEntity
+public class CameraHandler : EntityBase, IEntity
 {
     public const float CameraZoom = 3.0f;
 
