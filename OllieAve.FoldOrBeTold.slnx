@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="OllieAve.BombDropper.App/OllieAve.BombDropper.App.csproj" />
+  <Project Path="OllieAve.BombDropper.Entities/OllieAve.BombDropper.Entities.csproj" />
+</Solution>
