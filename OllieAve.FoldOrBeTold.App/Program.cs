@@ -65,10 +65,7 @@ internal static class Program
     {
         Raylib.BeginDrawing();
 
-        Raylib.ClearBackground(Color.Gray);
-
-        Raylib.DrawLine(Raylib.GetScreenWidth() / 2, 0, Raylib.GetScreenWidth() / 2, Raylib.GetScreenHeight(), Color.Green);
-        Raylib.DrawLine(0, Raylib.GetScreenHeight() / 2, Raylib.GetScreenWidth(), Raylib.GetScreenHeight() / 2, Color.Green);
+        Raylib.ClearBackground(Color.Black);
 
         Raylib.BeginMode2D(entityManager.GetCamera().Camera);
 

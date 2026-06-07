@@ -6,7 +6,8 @@ namespace OllieAve.FoldOrBeTold.Entities;
 
 public class StateManager : EntityBase, IEntity
 {
-    private const float totalTimerSeconds = 2 * 60;
+    //private const float totalTimerSeconds = 2 * 60;
+    private const float totalTimerSeconds = 25;
     private float secondsRemaining;
     private bool debugMode = true;
 
