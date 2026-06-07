@@ -8,6 +8,7 @@ public class StateManager : EntityBase, IEntity
 {
     private const float totalTimerSeconds = 2 * 60;
     private float secondsRemaining;
+    private bool debugMode = true;
 
     public StateManager()
     {
@@ -22,6 +23,14 @@ public class StateManager : EntityBase, IEntity
     public void Update(UpdateState updateState)
     {
         secondsRemaining -= Raylib.GetFrameTime();
+
+        if (Raylib.IsKeyPressed(KeyboardKey.F3))
+            debugMode = !debugMode;
+    }
+
+    public bool IsDebugMode()
+    {
+        return debugMode;
     }
 
     public float GeSecondsRemaining()

@@ -1,0 +1,25 @@
+{
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "TestMap.tmx": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 556.75,
+                "y": 353.5
+            }
+        }
+    },
+    "last.imagePath": "C:/Code/OllieAve.FoldOrBeTold/OllieAve.FoldOrBeTold.Entities/Exports",
+    "map.lastUsedFormat": "tmx",
+    "openFiles": [
+    ],
+    "project": "TestLevel.tiled-project",
+    "recentFiles": [
+        "TestMap.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}
