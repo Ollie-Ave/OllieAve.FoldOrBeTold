@@ -57,7 +57,6 @@ public class CameraHandler : EntityBase, IEntity
         if (mouseWheelMove != 0)
         {
             CameraZoom += mouseWheelMove / 3;
-            Console.WriteLine("Scrolled Up");
         }
 
         camera.Zoom = CameraZoom;
