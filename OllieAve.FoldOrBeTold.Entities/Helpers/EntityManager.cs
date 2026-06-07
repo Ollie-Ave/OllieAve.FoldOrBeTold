@@ -33,6 +33,11 @@ public class EntityManager
         return [.. entities.Select(x => x.Value).OfType<IRenderable>().OrderByDescending(x => x.RenderingOrder)];
     }
 
+    public List<IUiRenderable> GetUiRenderables()
+    {
+        return [.. entities.Select(x => x.Value).OfType<IUiRenderable>()];
+    }
+
     public Player GetPlayer()
     {
         return entities.Select(x => x.Value).SingleOrDefault(x => x is Player) as Player

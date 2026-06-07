@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-      <Content Include="Assets\**\*.*">
+      <Content Include="Exports\**\*.*">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
 

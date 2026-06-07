@@ -18,9 +18,10 @@ internal static class Program
         Tree tree = new(new(100, 100));
         Tree tree2 = new(new(300, 300));
         WashingBasket basket = new(new(100, 150));
+        AngryWifeBar wifeBar = new();
         StateManager stateManager = new();
 
-        EntityManager entityManager = new([player, tree, tree2, basket, stateManager]);
+        EntityManager entityManager = new([player, tree, tree2, basket, stateManager, wifeBar]);
 
         for (int i = 0; i < 10; i++)
         {
@@ -76,6 +77,11 @@ internal static class Program
 
 
         Raylib.EndMode2D();
+
+        foreach (IUiRenderable renderable in entityManager.GetUiRenderables())
+        {
+            renderable.Render();
+        }
 
         Raylib.EndDrawing();
     }
