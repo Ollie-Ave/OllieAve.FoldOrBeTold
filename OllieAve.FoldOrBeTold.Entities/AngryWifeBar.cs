@@ -17,8 +17,6 @@ public class AngryWifeBar : EntityBase, IEntity, IUiRenderable
     private Texture2D barTexture;
     private Texture2D wifeTexture;
 
-    private float percentTimeRemaining = 100;
-
     public AngryWifeBar()
     {
         barTexture = Raylib.LoadTexture(FileSystemHelper.GetAssetPath(barTextureName));
@@ -27,7 +25,7 @@ public class AngryWifeBar : EntityBase, IEntity, IUiRenderable
         position = new(10, Raylib.GetScreenHeight() - (barTexture.Height * 2) - 10);
     }
 
-    public void Render()
+    public void Render(RenderState state)
     {
         float fullWidth = (barTexture.Width - 18 - 35 - 20) * 2;
 
@@ -36,10 +34,14 @@ public class AngryWifeBar : EntityBase, IEntity, IUiRenderable
 
         Raylib.DrawRectangleRounded(bgRect, 40, 0, Color.White);
 
+        float percentLeft = state.EntityManager
+            .GetStateManager()
+            .GetPercentageOfTimeRemaining();
+
         Rectangle scissor = new(
             fillRect.X,
             fillRect.Y,
-            fullWidth * (percentTimeRemaining / 100f),
+            fullWidth * (percentLeft / 100f),
             fillRect.Height
         );
 
@@ -50,7 +52,7 @@ public class AngryWifeBar : EntityBase, IEntity, IUiRenderable
             (int)scissor.Height
         );
 
-        Raylib.DrawRectangleRounded(fillRect, 40, 0, Color.Red);
+        Raylib.DrawRectangleRounded(fillRect, 40, 0, Color.Pink);
 
         Raylib.EndScissorMode();
 
@@ -61,7 +63,5 @@ public class AngryWifeBar : EntityBase, IEntity, IUiRenderable
     public void Update(UpdateState updateState)
     {
         position = new(10, Raylib.GetScreenHeight() - (barTexture.Height * 2) - 10);
-
-        percentTimeRemaining -= 5 * Raylib.GetFrameTime();
     }
 }

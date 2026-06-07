@@ -1,7 +1,9 @@
+using OllieAve.FoldOrBeTold.Entities.Models;
+
 namespace OllieAve.FoldOrBeTold.Entities.Interfaces;
 
 public interface IUiRenderable
 {
-    void Render();
+    void Render(RenderState state);
 }
 

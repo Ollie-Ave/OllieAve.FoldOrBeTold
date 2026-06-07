@@ -8,7 +8,7 @@ namespace OllieAve.FoldOrBeTold.Entities;
 
 public class CameraHandler : EntityBase, IEntity
 {
-    public const float CameraZoom = 3.0f;
+    public float CameraZoom { get; set; } = 3.0f;
 
     private const float DeadZone = 50f;
     private const float FollowStrength = 8f;   // responsiveness
@@ -27,12 +27,12 @@ public class CameraHandler : EntityBase, IEntity
         Vector2 playerPos = entityManager.GetPlayer().GetPosition();
         Vector2 playerSize = entityManager.GetPlayer().GetSize();
 
-        Vector2 playerCenter = playerPos - (playerSize / 2f);
+        Vector2 playerCenter = playerPos + (playerSize / 2f);
 
         Vector2 offset = new(
-            (Raylib.GetScreenWidth() / 2f) - playerPos.X - (playerSize.X * 1.5f),
-            (Raylib.GetScreenHeight() / 2f) - playerCenter.Y - (playerSize.Y * 2f)
-            );
+            Raylib.GetScreenWidth() / 2,
+            Raylib.GetScreenHeight() / 2
+        );
 
         camera = new Camera2D
         {
@@ -44,6 +44,26 @@ public class CameraHandler : EntityBase, IEntity
     }
 
     public void Update(UpdateState updateState)
+    {
+        HandleCameraPosition(updateState);
+
+        HandleZoomControl();
+    }
+
+    private void HandleZoomControl()
+    {
+        float mouseWheelMove = Raylib.GetMouseWheelMove();
+
+        if (mouseWheelMove != 0)
+        {
+            CameraZoom += mouseWheelMove / 3;
+            Console.WriteLine("Scrolled Up");
+        }
+
+        camera.Zoom = CameraZoom;
+    }
+
+    private void HandleCameraPosition(UpdateState updateState)
     {
         Vector2 playerPos = updateState.EntityManager.GetPlayer().GetPosition();
         Vector2 playerSize = updateState.EntityManager.GetPlayer().GetSize();

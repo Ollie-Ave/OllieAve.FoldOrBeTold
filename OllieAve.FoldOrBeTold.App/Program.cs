@@ -12,7 +12,8 @@ internal static class Program
     [STAThread]
     public static void Main()
     {
-        Raylib.InitWindow(1920, 1080, "Hello World");
+        Raylib.SetConfigFlags(ConfigFlags.UndecoratedWindow);
+        Raylib.InitWindow(Raylib.GetMonitorWidth(0), Raylib.GetMonitorHeight(0), "game");
 
         Player player = new(new(150, 150));
         Tree tree = new(new(100, 100));
@@ -80,7 +81,12 @@ internal static class Program
 
         foreach (IUiRenderable renderable in entityManager.GetUiRenderables())
         {
-            renderable.Render();
+            RenderState state = new()
+            {
+                EntityManager = entityManager,
+            };
+
+            renderable.Render(state);
         }
 
         Raylib.EndDrawing();
