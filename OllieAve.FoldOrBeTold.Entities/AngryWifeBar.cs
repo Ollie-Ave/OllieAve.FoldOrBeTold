@@ -8,33 +8,31 @@ namespace OllieAve.FoldOrBeTold.Entities;
 
 public class AngryWifeBar : EntityBase, IEntity, IUiRenderable
 {
-    private const string textureName = "FlowerBar.png";
-    private const string shaderName = "PillMask.fs";
+    private const string barTextureName = "FlowerBar.png";
+    private const string wifeTextureName = "HappyWife.png";
+
+    private const int barXOffset = 30;
 
     private Vector2 position;
-    private Texture2D texture;
-    private Shader shader;
-    private RenderTexture2D target;
+    private Texture2D barTexture;
+    private Texture2D wifeTexture;
 
     private float percentTimeRemaining = 100;
 
     public AngryWifeBar()
     {
-        texture = Raylib.LoadTexture(FileSystemHelper.GetAssetPath(textureName));
-        shader = Raylib.LoadShader(null, FileSystemHelper.GetShaderPath(shaderName));
-        SetupShader();
+        barTexture = Raylib.LoadTexture(FileSystemHelper.GetAssetPath(barTextureName));
+        wifeTexture = Raylib.LoadTexture(FileSystemHelper.GetAssetPath(wifeTextureName));
 
-        target = Raylib.LoadRenderTexture(texture.Width, texture.Height);
-
-        position = new(10, Raylib.GetScreenHeight() - (texture.Height * 2) - 10);
+        position = new(10, Raylib.GetScreenHeight() - (barTexture.Height * 2) - 10);
     }
 
     public void Render()
     {
-        float fullWidth = (texture.Width - 18 - 35 - 20) * 2;
+        float fullWidth = (barTexture.Width - 18 - 35 - 20) * 2;
 
-        Rectangle bgRect = new(position.X + 35, position.Y + 35, fullWidth, texture.Height - 7);
-        Rectangle fillRect = new(position.X + 35, position.Y + 35, fullWidth, texture.Height - 7);
+        Rectangle bgRect = new(position.X + 35 + barXOffset, position.Y + 35, fullWidth, barTexture.Height - 7);
+        Rectangle fillRect = new(position.X + 35 + barXOffset, position.Y + 35, fullWidth, barTexture.Height - 7);
 
         Raylib.DrawRectangleRounded(bgRect, 40, 0, Color.White);
 
@@ -56,17 +54,14 @@ public class AngryWifeBar : EntityBase, IEntity, IUiRenderable
 
         Raylib.EndScissorMode();
 
-        Raylib.DrawTextureEx(texture, position, 0, 2, Color.White);
+        Raylib.DrawTextureEx(barTexture, position + new Vector2(barXOffset, 0), 0, 2, Color.White);
+        Raylib.DrawTextureEx(wifeTexture, position, 0, 2, Color.White);
     }
 
     public void Update(UpdateState updateState)
     {
-        position = new(10, Raylib.GetScreenHeight() - (texture.Height * 2) - 10);
+        position = new(10, Raylib.GetScreenHeight() - (barTexture.Height * 2) - 10);
 
         percentTimeRemaining -= 5 * Raylib.GetFrameTime();
-    }
-
-    private void SetupShader()
-    {
     }
 }
