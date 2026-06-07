@@ -1,0 +1,40 @@
+{
+    "activeFile": "",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "C:/Code/OllieAve.FoldOrBeTold/OllieAve.FoldOrBeTold.Entities/LevelFiles/HouseTilemap.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Code/OllieAve.FoldOrBeTold/OllieAve.FoldOrBeTold.Entities/LevelFiles/TestMap.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 715.9999999999999,
+                "y": 470.66666666666663
+            }
+        },
+        "HouseTilemap.tsx": {
+            "scaleInDock": 4,
+            "scaleInEditor": 1
+        },
+        "TestMap.tmx": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 556.75,
+                "y": 353.5
+            }
+        }
+    },
+    "openFiles": [
+    ],
+    "project": "",
+    "recentFiles": [
+        "C:/Code/OllieAve.FoldOrBeTold/OllieAve.FoldOrBeTold.Entities/LevelFiles/TestMap.tmx",
+        "HouseTilemap.tsx",
+        "TestMap.tmx"
+    ]
+}

@@ -14,6 +14,16 @@ internal static class FileSystemHelper
         return texturePath;
     }
 
+    public static string GetLevelFilePath(string levelFileName)
+    {
+        string texturePath = Path.Combine(
+            AppContext.BaseDirectory,
+            EntityConstants.LevelFileFolderName,
+            levelFileName);
+
+        return texturePath;
+    }
+
     public static string GetShaderPath(string shaderFileName)
     {
         string shaderPath = Path.Combine(

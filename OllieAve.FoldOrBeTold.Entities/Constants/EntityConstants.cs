@@ -4,4 +4,5 @@ public static class EntityConstants
 {
     internal const string AssetFolderName = "Exports";
     internal const string ShaderFolderName = "Shaders";
+    internal const string LevelFileFolderName = "LevelFiles";
 }

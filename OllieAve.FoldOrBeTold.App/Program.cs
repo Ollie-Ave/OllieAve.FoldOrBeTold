@@ -2,6 +2,7 @@
 using OllieAve.FoldOrBeTold.Entities;
 using OllieAve.FoldOrBeTold.Entities.Helpers;
 using OllieAve.FoldOrBeTold.Entities.Interfaces;
+using OllieAve.FoldOrBeTold.Entities.Levels;
 using OllieAve.FoldOrBeTold.Entities.Models;
 using Raylib_cs;
 
@@ -16,18 +17,18 @@ internal static class Program
         Raylib.InitWindow(Raylib.GetMonitorWidth(0), Raylib.GetMonitorHeight(0), "game");
 
         Player player = new(new(150, 150));
-        Tree tree = new(new(100, 100));
-        Tree tree2 = new(new(300, 300));
+        TestLevel level = new();
+        DebugStats debugStats = new();
         WashingBasket basket = new(new(100, 150));
         AngryWifeBar wifeBar = new();
         StateManager stateManager = new();
 
-        EntityManager entityManager = new([player, tree, tree2, basket, stateManager, wifeBar]);
+        EntityManager entityManager = new([player, debugStats, level, basket, stateManager, wifeBar]);
 
         for (int i = 0; i < 10; i++)
         {
             Random random = new();
-            Vector2 newPos = new(random.Next(-100, 300), random.Next(-100, 300));
+            Vector2 newPos = new(random.Next(50, 16 * 32), random.Next(50 + 32, 8 * 32));
             LaundryItem item = new(newPos);
 
             entityManager.SpawnEntity(item);
